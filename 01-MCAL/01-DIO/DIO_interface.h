@@ -3,7 +3,7 @@
 
 #include "DIO_private.h"
 
-#define GPIOA			((_strGPIO_t*)	GPIOA_BASE)
+// #define GPIOA			((_strGPIO_t*)	GPIOA_BASE)
 #define GPIOB			((_strGPIO_t*)	GPIOB_BASE)
 #define GPIOC			((_strGPIO_t*)	GPIOC_BASE)
 #define GPIOD			((_strGPIO_t*)	GPIOD_BASE)
@@ -33,6 +33,13 @@ typedef enum
 	LOW,
 	HIGH
 }_enuPINVALUE_t;
+
+typedef struct
+{
+	volatile u8	PIN;
+	volatile u8	DDR;
+	volatile u8	PORT;
+}_strGPIO_t;
 
 void DIO_vidSetPinMode(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuPinDirection);
 void DIO_vidWritePin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t enuPinValue);

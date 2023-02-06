@@ -80,6 +80,7 @@ void DIO_vidSetLowNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 void DIO_vidWriteLowNibble(_strGPIO_t* strGPIOx, u8 u8Value)
 {
 	u8Value &= 0x0f;
+	strGPIOx->PORT &= 0xf0;
 	strGPIOx->PORT |= u8Value;
 }
 
@@ -102,5 +103,6 @@ void DIO_vidSetHighNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 void DIO_vidWriteHighNibble(_strGPIO_t* strGPIOx, u8 u8Value)
 {
 	u8Value &= 0xf0;
+	strGPIOx->PORT &= 0x0f;
 	strGPIOx->PORT |= u8Value;
 }
