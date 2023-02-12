@@ -1,6 +1,6 @@
 #include "DETECTORS.h"
-//#include "SERVO_interface.h"
-//#include "ULTRASONIC_interface.h"
+#include "SERVO_interface.h"
+#include "ULTRASONIC_interface.h"
 
 const _strSERVO_t DECT_strSERVO = 
 {

@@ -15,7 +15,7 @@ static _strTMR0CONFIG_t MOTOR_strTMR0Config =
 	TMR0_PSC_1024
 };
 
-void MOTOR_voidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig)
+void MOTOR_vidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig)
 {
 	DIO_vidSetPinMode(PTR_strMOTORConfig->OUT1_PORT, PTR_strMOTORConfig->OUT1_PIN, OUTPUT);
 	DIO_vidSetPinMode(PTR_strMOTORConfig->OUT2_PORT, PTR_strMOTORConfig->OUT2_PIN, OUTPUT);

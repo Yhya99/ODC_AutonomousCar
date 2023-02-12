@@ -1,26 +1,20 @@
-#include "Types.h"
-#include "BIT_MATH.h"
 #include "APPLICATION.h"
 
 //1
 void APP_vidInitSate(void)
 {
-// motor config
- MOTOR_voidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig);
- MOTOR_vidSetSpeed(const _strMOTORCONFIG_t *PTR_strMOTORConfig, u8 u8Speed);
- MOTOR_voidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig);
- MOTOR_vidSetSpeed(const _strMOTORCONFIG_t *PTR_strMOTORConfig, u8 u8Speed);
-// lcd
- LCD_vidInit(void)
- _enuState_t = stopState;
+    ACT_vidInit();
+    LCD_vidInit();
+    _enuState_t = stopState;
 }
 
 //2
 void APP_vidStopSate(void)
 {
- MOTOR_vidSetSpeed(const _strMOTORCONFIG_t *PTR_strMOTORConfig, u8 u8Speed = 0);
- MOTOR_vidSetSpeed(const _strMOTORCONFIG_t *PTR_strMOTORConfig, u8 u8Speed = 0);
- state = ScanDirState;
+_enuDirction_t_=stoped;
+ACT_vidStop();
+ _enuState_t = ScanDirState;
+ 
 }
 
 //3
@@ -52,13 +46,15 @@ void APP_CheckMoving()
 //5
 void APP_vidChooseDir(void)
 {
-    if(DECT_ScanDirction() == LEFT)
+    if(DECT_ScanDirction() == left)
     {
         _enuState_t = APP_vidSpinLift;
-    }else if(DECT_ScanDirction() == RIGHT)
+    }
+    else if(DECT_ScanDirction() == right)
     {
         _enuState_t = APP_vidSpinRight;
-    }else
+    }
+    else
     {
 
     }
@@ -66,24 +62,31 @@ void APP_vidChooseDir(void)
 
 //6
 void APP_vidSpinRight(void)
-{
+{   
+    _enuDirction_t_=right;
     ACT_vidSpinRight();
     _enuState_t = runState;
+    
 }
 
 //7
 void APP_vidSpinLift(void)
 {
+    _enuDirction_t_=left;
     ACT_vidSpinLeft();
     _enuState_t = runState;
+    
+
 }
 
 
-
+//8
 void APP_vidRun(void)
 { 
+    _enuDirction_t_=forward;
     ACT_vidRun();
     _enuState_t= ScanDirState;
+    
 }
 
 

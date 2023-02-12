@@ -13,7 +13,7 @@ typedef struct
 	_enuPINx_t ENABLE_PIN;
 }_strMOTORCONFIG_t;
 
-void MOTOR_voidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig);
+void MOTOR_vidInit(const _strMOTORCONFIG_t *PTR_strMOTORConfig);
 void MOTOR_vidSetSpeed(const _strMOTORCONFIG_t *PTR_strMOTORConfig, u8 u8Speed);
 void MOTOR_vidStop(const _strMOTORCONFIG_t *PTR_strMOTORConfig);
 void MOTOR_vidMoveForward(const _strMOTORCONFIG_t *PTR_strMOTORConfig);

@@ -7,7 +7,10 @@ int main(void)
 {
     while (1)
     {
-        APP_Arr[APP_State]();        
+        //displayDirctionState();
+        //APP_Arr[_enuState_t]();
+        APP_vidInitSate();
+        APP_vidRun();
     }
     return 0;
 }
