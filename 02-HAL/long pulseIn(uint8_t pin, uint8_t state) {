@@ -1,0 +1,35 @@
+long pulseIn(uint8_t pin, uint8_t state) {
+  // Store the start time
+  unsigned long startTime = micros();
+
+  // Wait for the pulse to start
+  while (digitalRead(pin) != state) {
+    if (micros() - startTime > 5000)
+      return 0;
+  }
+
+  // Store the end time
+  unsigned long endTime = micros();
+
+  // Wait for the pulse to end
+  while (digitalRead(pin) == state) {
+    if (micros() - endTime > 5000)
+      return 0;
+  }
+
+  // Return the pulse width
+  return (endTime - startTime);
+}
+
+
+// new code
+
+  unsigned long micros() {
+  // Store the current timer count
+  unsigned long timerCount = TCNT0;
+
+  // Calculate the number of microseconds since the program began
+  unsigned long microseconds = (timerCount / (F_CPU / 1000000UL));
+
+  return microseconds;
+}
