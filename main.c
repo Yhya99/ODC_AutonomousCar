@@ -5,12 +5,13 @@
 
 int main(void)
 {
+    APP_vidInitSate();
     while (1)
     {
         //displayDirctionState();
         //APP_Arr[_enuState_t]();
-        APP_vidInitSate();
         APP_vidRun();
+
     }
     return 0;
 }
