@@ -96,5 +96,4 @@ typedef struct
 	 volatile u8             OCR1BH;
 }_strTMR1_t;
 
-
 #endif

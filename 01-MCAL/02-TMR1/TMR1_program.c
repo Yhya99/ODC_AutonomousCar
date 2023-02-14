@@ -1,12 +1,20 @@
-#include "../02-TMR1/TMR1_CONFIG.h"
-#include "../02-TMR1/TMR1_INTERFACE.h"
-#include "../02-TMR1/TMR1_PRIVATE.h"
+
+
 #include "Types.h"
 #include "BIT_MATH.h"
 
 #include "DIO_interface.h"
 
+#include "TMR1_PRIVATE.h"
+#include "TMR1_CONFIG.h"
+#include "TMR1_INTERFACE.h"
 
+#define NULLPTR   ((void*)0)
+
+static void (*TMR1_OVF_Fptr) (void)=NULLPTR;
+static void (*TMR1_OCA_Fptr) (void)=NULLPTR;
+static void (*TMR1_OCB_Fptr) (void)=NULLPTR;
+static void (*TMR1_ICU_Fptr) (void)=NULLPTR;
 
 void TMR1_VidInit(const _strTMR1CONFIG_t *Ptr_strTMR1Config)
 {
@@ -51,10 +59,103 @@ void TMR1_vidClear(void)
 u16 TMR1_u16ICREAD(_enuTMR1ICES_t enuTMR1ICES)
 {
     TMR1->TCCR1B.strBITS.ICES1 = enuTMR1ICES;
+    TMR1->TIFR1.strBITS.ICF1 = 1;
+    TMR1->TIFR1.strBITS.TOV1 = 1;
 	u16 u16ICValue;
 	while(TMR1->TIFR1.strBITS.ICF1 == 0);
 	u16ICValue = TMR1->ICR1L;
 	u16ICValue |= (8<<(TMR1->ICR1H));
-	TMR1->TIFR1.strBITS.ICF1 = 1;
 	return u16ICValue;
+}
+
+void TMR1_OVF_InterruptEnable(void)
+{
+	TMR1->TIMSK1.strBITS.TOIE1 = 1;
+}
+void TMR1_OVF_InterruptDisable(void)
+{
+	TMR1->TIMSK1.strBITS.TOIE1 = 0;
+}
+void TMR1_OCR1A_InterruptEnable(void)
+{
+	TMR1->TIMSK1.strBITS.OCIE1A = 1;
+}
+
+void TMR1_OCR1A_InterruptDisable(void)
+{
+	TMR1->TIMSK1.strBITS.OCIE1A = 0;
+}
+
+void TMR1_OCR1B_InterruptEnable(void)
+{
+	TMR1->TIMSK1.strBITS.OCIE1B = 1;
+}
+
+void TMR1_OCR1B_InterruptDisable(void)
+{
+	TMR1->TIMSK1.strBITS.OCIE1B = 0;
+}
+
+void TMR1_ICU_InterruptEnable(void)
+{
+	TMR1->TIMSK1.strBITS.ICIE1 = 1;
+}
+void TMR1_ICU_InterruptDisable(void)
+{
+	TMR1->TIMSK1.strBITS.ICIE1 = 0;
+}
+
+void TMR1_OVF_SetCallBack(void(*LocalFptr)(void))
+{
+	TMR1_OVF_Fptr = LocalFptr;
+}
+
+void Timer1_OCR1A_SetCallBack(void(*LocalFptr)(void))
+{
+	TMR1_OCA_Fptr=LocalFptr;
+}
+
+void Timer1_OCR1B_SetCallBack(void(*LocalFptr)(void))
+{
+	TMR1_OCB_Fptr=LocalFptr;
+}
+
+void Timer1_ICU_SetCallBack(void(*LocalFptr)(void))
+{
+	TMR1_ICU_Fptr=LocalFptr;
+}
+
+// DON't in include "avr/interrupt.h" in the top, Gives syntax errors
+#include <avr/interrupt.h>
+
+ISR(TIMER1_OVF_vect)
+{
+	if(TMR1_OVF_Fptr!=NULLPTR)
+	{
+		TMR1_OVF_Fptr();
+	}
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+	if(TMR1_OCA_Fptr!=NULLPTR)
+	{
+		TMR1_OCA_Fptr();
+	}
+}
+
+ISR(TIMER1_COMPB_vect)
+{
+	if(TMR1_OCB_Fptr!=NULLPTR)
+	{
+		TMR1_OCB_Fptr();
+	}
+}
+
+ISR(TIMER1_CAPT_vect)
+{
+	if(TMR1_ICU_Fptr!=NULLPTR)
+	{
+		TMR1_ICU_Fptr();
+	}
 }

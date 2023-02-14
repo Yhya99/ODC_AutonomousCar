@@ -5,7 +5,7 @@
 
 
 #include "ACTUATORS.h"
-//#include "DETECTORS.h"
+#include "DETECTORS.h"
 #include "DISPLAY.h"
 
 
@@ -21,27 +21,26 @@ typedef enum
 	runState=7
 } _enuState_t;
 
-
+_enuState_t APP_enuGitState(void);
 //0
 void APP_vidInitSate(void);
 //1
 void APP_vidStopSate(void);
 //2
-//void APP_vidScan(void);
+void APP_vidScan(void);
 //3
 void APP_CheckMoving(void);
 //4
-//void APP_vidChooseDir(void);
+void APP_vidChooseDir(void);
 //5
 void APP_vidSpinRight(void);
 //6
 void APP_vidSpinLift(void);
 //7
 void APP_vidRun(void);
+
 //showing data on display
 void APP_vidShowData(void);
-
-//void (*APP_Arr[]) (void) = {APP_vidInitSate,APP_vidStopSate,APP_vidScan,APP_CheckMoving,APP_vidChooseDir,APP_vidSpinRight,APP_vidSpinLift,APP_vidRun};
 
 
 #endif

@@ -8,14 +8,14 @@
 
 typedef enum
 {
-    forward,
-    right,
-    left,
-    stopped
-}_enuDirction_t_;
+    DISPLAY_FORWARD,
+	DISPLAY_RIGHT,
+	DISPLAY_LEFT,
+	DISPLAY_STOPPED
+}_enuDispalyDirction_t_;
 
 void DISPLAY_vidInit(void);
 void DISPALY_vidShowDirection(void);
-void DISPLAY_vidSetDirection(_enuDirction_t_ enuDirection);
+void DISPLAY_vidSetDirection(_enuDispalyDirction_t_ enuDirection);
 
 #endif

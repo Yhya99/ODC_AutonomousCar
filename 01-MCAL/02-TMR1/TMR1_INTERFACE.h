@@ -84,4 +84,28 @@ void TMR1_vidClear(void);
 void TMR1_vidICRWrite(u16 u16TMR1ICRValue);
 void TMR1_vidPWMWrite(_enuTMR1PWMCHANNEL_t enuTMR1PWMChannel, u16 u16DutyCycle);
 
+void TMR1_OVF_InterruptEnable(void);
+
+void TMR1_OVF_InterruptDisable(void);
+
+void TMR1_OCR1A_InterruptEnable(void);
+
+void TMR1_OCR1A_InterruptDisable(void);
+
+void TMR1_OCR1B_InterruptEnable(void);
+
+void TMR1_OCR1B_InterruptDisable(void);
+
+void TMR1_ICU_InterruptEnable(void);
+
+void TMR1_ICU_InterruptDisable(void);
+
+void TMR1_OVF_SetCallBack(void(*LocalFptr)(void));
+
+void TMR1_OCR1A_SetCallBack(void(*LocalFptr)(void));
+
+void TMR1_OCR1B_SetCallBack(void(*LocalFptr)(void));
+
+void TMR1_ICU_SetCallBack(void(*LocalFptr)(void));
+
 #endif
