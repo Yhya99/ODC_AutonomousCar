@@ -42,5 +42,5 @@ void APP_vidRun(void);
 //showing data on display
 void APP_vidShowData(void);
 
-
+extern _enuState_t APP_enuState;
 #endif

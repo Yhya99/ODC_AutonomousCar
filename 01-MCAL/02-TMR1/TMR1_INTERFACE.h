@@ -51,8 +51,8 @@ typedef enum
 
 typedef enum
 {
-	IC_FALLING_EDGE,
-	IC_RISING_EDGE,
+	IC_FALLING_EDGE = 0,
+	IC_RISING_EDGE = 1
 }_enuTMR1ICES_t;
 
 typedef enum
@@ -79,10 +79,13 @@ typedef struct
 
 // FUNCTIONS PROTOTYPING
 void TMR1_VidInit(const _strTMR1CONFIG_t *Ptr_strTMR1Config);
-u16 TMR1_u16ICREAD(_enuTMR1ICES_t enuTMR1ICES);
+u16 TMR1_u16ReadICR(void);
+u8 TMR1_ICF_GET(void);
 void TMR1_vidClear(void);
 void TMR1_vidICRWrite(u16 u16TMR1ICRValue);
 void TMR1_vidPWMWrite(_enuTMR1PWMCHANNEL_t enuTMR1PWMChannel, u16 u16DutyCycle);
+
+void TMR1_vidSetICREdge(_enuTMR1ICES_t enuTMR1ICES);
 
 void TMR1_OVF_InterruptEnable(void);
 
@@ -107,5 +110,9 @@ void TMR1_OCR1A_SetCallBack(void(*LocalFptr)(void));
 void TMR1_OCR1B_SetCallBack(void(*LocalFptr)(void));
 
 void TMR1_ICU_SetCallBack(void(*LocalFptr)(void));
+
+void TMR1_ICF_CLR(void);
+void TMR1_OVF_CLR(void);
+
 
 #endif

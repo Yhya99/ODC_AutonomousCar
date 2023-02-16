@@ -21,12 +21,12 @@ void TMR0_vidPWMWrite(_enuTMR0PWMCHANNEL_t enuTMR0PWMChannel,u16 u16DutyCycle)
 {
 	if(enuTMR0PWMChannel == OC0A)
 	{
-		DIO_vidSetPinMode(GPIOB, PIN1, OUTPUT);
+		DIO_vidSetPinMode(GPIOD, PIN6, OUTPUT);
 		TMR0->OCR0A = (u16DutyCycle);
 	}
 	else if(enuTMR0PWMChannel == OC0B)
 	{
-		DIO_vidSetPinMode(GPIOB, PIN2, OUTPUT);
+		DIO_vidSetPinMode(GPIOD, PIN5, OUTPUT);
 		TMR0->OCR0B = (u16DutyCycle);
 	}
 	else

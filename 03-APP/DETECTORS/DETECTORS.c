@@ -1,18 +1,25 @@
 #include "DETECTORS.h"
 #include "SERVO_interface.h"
 #include "ULTRASONIC_interface.h"
+#include "util/delay.h"
 
-u8 min_distant = 10;
+u8 min_distant = 14;
 const _strSERVO_t DECT_strSERVO =
 {
 		SERVO_CHANNEL_1
 };
 
+void DECT_vidInit(void)
+{
+	ULTRASONIC_vidInit();
+	SERVO_vidInit(&DECT_strSERVO);
+	SERVO_vidWrite(&DECT_strSERVO,90);
+
+}
 u8 DECT_Scan(void)
 {
-    u8 obstacles ;
-    ULTRASONIC_vidInit();
-    if (ULTRASONIC_u16CalculateDistance() > min_distant)
+    u8 obstacles = 0;
+    if (ULTRASONIC_doubleGetDistance() > min_distant)
     {
     	obstacles = 0;
     }
@@ -26,20 +33,19 @@ u8 DECT_Scan(void)
 _DECT_enumDirection_t DECT_ScanDirction(void)
 {
     _DECT_enumDirection_t enumDirection;
-    SERVO_vidInit(&DECT_strSERVO);
     SERVO_vidWrite(&DECT_strSERVO,0);
-    ULTRASONIC_vidInit();
-    u8 Right_distance = ULTRASONIC_u16CalculateDistance();
-    SERVO_vidInit(&DECT_strSERVO);
+    _delay_ms(1000);
+    u16 Right_distance = ULTRASONIC_doubleGetDistance();
+    _delay_ms(50);
     SERVO_vidWrite(&DECT_strSERVO,180);
-    ULTRASONIC_vidInit();
-    u8 Left_distance = ULTRASONIC_u16CalculateDistance();
-
+    _delay_ms(1000);
+    u16 Left_distance = ULTRASONIC_doubleGetDistance();
+    _delay_ms(50);
     if (Right_distance > min_distant)
     {
     	enumDirection = RIGHT;
     }
-    else if (Left_distance> min_distant)
+    else if (Left_distance > min_distant)
     {
     	enumDirection = LEFT;
     }
@@ -47,5 +53,7 @@ _DECT_enumDirection_t DECT_ScanDirction(void)
     {
     	enumDirection = Direction_ERROR;
     }
+    SERVO_vidWrite(&DECT_strSERVO,90);
+    _delay_ms(500);
     return enumDirection;
 }

@@ -1,7 +1,7 @@
 #ifndef _MCAL_TMR1_PRIVATE_H_
 #define _MCAL_TMR1_PRIVATE_H_
 
-#define TMR1     ((_strTMR1_t*)0x36)
+#define TMR1     ((volatile _strTMR1_t *)0x36)
 
 typedef struct
 {
@@ -72,8 +72,8 @@ typedef struct
 
 typedef union
 {
-      u8 u8REG;
-      _strTIFR1_t strBITS;   
+	volatile u8 u8REG;
+	volatile _strTIFR1_t strBITS;
 }_uniTIFR1_t;
 
 typedef struct

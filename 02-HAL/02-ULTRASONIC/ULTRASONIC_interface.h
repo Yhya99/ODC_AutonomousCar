@@ -2,6 +2,6 @@
 #define _HAL_ULTRASONIC_INTERFACE_H_
 
 void ULTRASONIC_vidInit(void);
-u16 ULTRASONIC_u16CalculateDistance();
+double ULTRASONIC_doubleGetDistance(void);
 
 #endif

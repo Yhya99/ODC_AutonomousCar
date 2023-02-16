@@ -4,9 +4,9 @@
 #include "DIO_private.h"
 
 // #define GPIOA			((_strGPIO_t*)	GPIOA_BASE)
-#define GPIOB			((_strGPIO_t*)	GPIOB_BASE)
-#define GPIOC			((_strGPIO_t*)	GPIOC_BASE)
-#define GPIOD			((_strGPIO_t*)	GPIOD_BASE)
+#define GPIOB			((volatile _strGPIO_t*)	GPIOB_BASE)
+#define GPIOC			((volatile _strGPIO_t*)	GPIOC_BASE)
+#define GPIOD			((volatile _strGPIO_t*)	GPIOD_BASE)
 
 typedef enum
 {
@@ -41,16 +41,16 @@ typedef struct
 	volatile u8	PORT;
 }_strGPIO_t;
 
-void DIO_vidSetPinMode(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuPinDirection);
-void DIO_vidWritePin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t enuPinValue);
-_enuPINVALUE_t DIO_vidReadPin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx);
+void DIO_vidSetPinMode(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuPinDirection);
+void DIO_vidWritePin(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t enuPinValue);
+_enuPINVALUE_t DIO_vidReadPin(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx);
 
-void DIO_vidSetPortMode(_strGPIO_t* strGPIOx,  _enuIOx_t enuPinDirection);
-void DIO_vidWritePort(_strGPIO_t* strGPIOx, u8 u8Value);
+void DIO_vidSetPortMode(volatile _strGPIO_t* strGPIOx,  _enuIOx_t enuPinDirection);
+void DIO_vidWritePort(volatile _strGPIO_t* strGPIOx, u8 u8Value);
 
-void DIO_vidSetLowNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection);
-void DIO_vidWriteLowNibble(_strGPIO_t* strGPIOx, u8 u8Value);
-void DIO_vidSetHighNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection);
-void DIO_vidWriteHighNibble(_strGPIO_t* strGPIOx, u8 u8Value);
+void DIO_vidSetLowNibbleMode(volatile _strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection);
+void DIO_vidWriteLowNibble(volatile _strGPIO_t* strGPIOx, u8 u8Value);
+void DIO_vidSetHighNibbleMode(volatile _strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection);
+void DIO_vidWriteHighNibble(volatile _strGPIO_t* strGPIOx, u8 u8Value);
 
 #endif

@@ -16,6 +16,14 @@ static _strTMR1CONFIG_t SERVO_strTMR1Config=
 	ICNC_DISABLE,
 	TMR1_PSC_8
 };
+static float degree_fraction = (MAX_US - MIN_US)/180;
+
+static u16 SERVO_u16UsToTick(float floatValue)
+{
+	u16 tick_value;
+	tick_value = (u16)(floatValue * 2);
+	return tick_value;
+}
 
 void SERVO_vidInit(const _strSERVO_t *PTR_strSERVO)
 {
@@ -38,13 +46,16 @@ void SERVO_vidInit(const _strSERVO_t *PTR_strSERVO)
 
 void SERVO_vidWrite(const _strSERVO_t *PTR_strSERVO,u8 u8Degree)
 {
+	float value_us;
+	u16 PWM_value;
 	if((u8Degree > 0) && (u8Degree <= 180))
 	{
-		u16 value = (u16)((float)u8Degree/(0.09));
-		TMR1_vidPWMWrite(PTR_strSERVO->enuSERVOChannel,(2000+(value)));
+		value_us = MIN_US + degree_fraction*((float)u8Degree);
+		PWM_value = SERVO_u16UsToTick(value_us);
 	}
 	else
 	{
-		TMR1_vidPWMWrite(PTR_strSERVO->enuSERVOChannel,1999);	// 0' degree
+		PWM_value = SERVO_u16UsToTick(MIN_US);
 	}
+	TMR1_vidPWMWrite(PTR_strSERVO->enuSERVOChannel,PWM_value);
 }

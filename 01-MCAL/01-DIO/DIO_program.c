@@ -6,7 +6,7 @@
 #include "DIO_config.h"
 
 
-void DIO_vidSetPinMode(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuPinDirection)
+void DIO_vidSetPinMode(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuPinDirection)
 {
 	if(enuPinDirection == OUTPUT)
 	{
@@ -21,7 +21,7 @@ void DIO_vidSetPinMode(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx,  _enuIOx_t enuP
 		CLR_BIT(strGPIOx->DDR, enuPINx);
 	}
 }
-void DIO_vidWritePin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t enuPinValue)
+void DIO_vidWritePin(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t enuPinValue)
 {
 	if(enuPinValue == HIGH)
 	{
@@ -32,14 +32,14 @@ void DIO_vidWritePin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx, _enuPINVALUE_t en
 	}
 }
 
-_enuPINVALUE_t DIO_vidReadPin(_strGPIO_t* strGPIOx, _enuPINx_t enuPINx)
+_enuPINVALUE_t DIO_vidReadPin(volatile _strGPIO_t* strGPIOx, _enuPINx_t enuPINx)
 {
 	_enuPINVALUE_t enuPinValue;
 	enuPinValue = GET_BIT(strGPIOx->PIN,enuPINx);
 	return enuPinValue;
 }
 
-void DIO_vidSetPortMode(_strGPIO_t* strGPIOx,  _enuIOx_t enuPinDirection)
+void DIO_vidSetPortMode(volatile _strGPIO_t* strGPIOx,  _enuIOx_t enuPinDirection)
 {
 	if(enuPinDirection == OUTPUT)
 	{
@@ -56,12 +56,12 @@ void DIO_vidSetPortMode(_strGPIO_t* strGPIOx,  _enuIOx_t enuPinDirection)
 	}
 }
 
-void DIO_vidWritePort(_strGPIO_t* strGPIOx, u8 u8Value)
+void DIO_vidWritePort(volatile _strGPIO_t* strGPIOx, u8 u8Value)
 {
 	strGPIOx->PORT = u8Value;
 }
 
-void DIO_vidSetLowNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
+void DIO_vidSetLowNibbleMode(volatile _strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 {
 	if(enuPinDirection == OUTPUT)
 	{
@@ -77,14 +77,14 @@ void DIO_vidSetLowNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 		strGPIOx->DDR 	&= 0xf0;
 	}
 }
-void DIO_vidWriteLowNibble(_strGPIO_t* strGPIOx, u8 u8Value)
+void DIO_vidWriteLowNibble(volatile _strGPIO_t* strGPIOx, u8 u8Value)
 {
 	u8Value &= 0x0f;
 	strGPIOx->PORT &= 0xf0;
 	strGPIOx->PORT |= u8Value;
 }
 
-void DIO_vidSetHighNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
+void DIO_vidSetHighNibbleMode(volatile _strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 {
 	if(enuPinDirection == OUTPUT)
 	{
@@ -100,7 +100,7 @@ void DIO_vidSetHighNibbleMode(_strGPIO_t* strGPIOx , _enuIOx_t enuPinDirection)
 		strGPIOx->DDR 	&= 0x0f;
 	}
 }
-void DIO_vidWriteHighNibble(_strGPIO_t* strGPIOx, u8 u8Value)
+void DIO_vidWriteHighNibble(volatile _strGPIO_t* strGPIOx, u8 u8Value)
 {
 	u8Value &= 0xf0;
 	strGPIOx->PORT &= 0x0f;
